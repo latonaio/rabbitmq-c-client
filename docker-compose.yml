@@ -1,0 +1,18 @@
+# Keep private! For development use only
+version: '3'
+
+services:
+  dev:
+    build: .
+    volumes:
+    - ./:/rabbitmq-cpp-client
+    command: "/usr/sbin/sshd -D"
+  
+  rabbit:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    hostname: cpptest
+    volumes:
+      - ./tests/rabbitmq-data:/var/lib/rabbitmq
